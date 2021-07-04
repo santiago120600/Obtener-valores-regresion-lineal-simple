@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-
-def regresion(x,y):
+def regresion(x,y,valor=None):
     xMenosPromedio = obtenerLista(x)
     yMenosPromedio = obtenerLista(y)
     xMenosXCuadrado = obtenerCuadrado(x)
@@ -14,7 +13,10 @@ def regresion(x,y):
     sumaResultadoMultiplicacion = sum(multiplicacionXyY)
     w1 = sumaResultadoMultiplicacion / sumaCuadradosX 
     w0 = -1*w1*promedio_x + promedio_y
-    obtenerLineaRegresion(x,y,11,w0,w1)
+    if valor:
+        print(obtenerValorRegresion(valor,w0,w1))
+    else:
+        obtenerLineaRegresion(x,y,11,w0,w1)
     
 def obtenerLineaRegresion(x,y,rango_regresion,w0,w1):
     linea_regresion = []
@@ -24,6 +26,10 @@ def obtenerLineaRegresion(x,y,rango_regresion,w0,w1):
         regresion_x.append(valor_x)
         linea_regresion.append(valor_y)
     graficar(x,y,regresion_x,linea_regresion)
+
+def obtenerValorRegresion(valor,w0,w1):
+    y = w0 + w1*valor
+    return y
 
 def graficar(x,y,regresion_x,regresion_y):
     plt.plot(x, y, label="Data")
@@ -51,4 +57,8 @@ if __name__ == "__main__":
     df = pd.read_excel('data.xlsx')
     x_column =  df['x']
     y_column =  df['y']
-    regresion(x_column,y_column)
+    valorX = float(input("Ingrese el valor de x: "))
+    regresion(x_column,y_column,valorX)
+    valorY = float(input("Ingrese el valor de y: "))
+    regresion(y_column,x_column,valorY)
+

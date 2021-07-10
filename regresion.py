@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-def regresion(x,y,valor=None):
+def regresion(x,y,rango_regresion,valor=None):
     xMenosPromedio = obtenerLista(x)
     yMenosPromedio = obtenerLista(y)
     xMenosXCuadrado = obtenerCuadrado(x)
@@ -16,7 +16,7 @@ def regresion(x,y,valor=None):
     if valor:
         print(obtenerValorRegresion(valor,w0,w1))
     else:
-        obtenerLineaRegresion(x,y,11,w0,w1)
+        obtenerLineaRegresion(x,y,rango_regresion,w0,w1)
     
 def obtenerLineaRegresion(x,y,rango_regresion,w0,w1):
     linea_regresion = []
@@ -54,11 +54,8 @@ def obtenerCuadrado(lista):
     return iMenosICuadrado
 
 if __name__ == "__main__":
-    df = pd.read_excel('data.xlsx')
-    x_column =  df['x']
-    y_column =  df['y']
-    valorX = float(input("Ingrese el valor de x: "))
-    regresion(x_column,y_column,valorX)
-    valorY = float(input("Ingrese el valor de y: "))
-    regresion(y_column,x_column,valorY)
+    df = pd.read_csv('insurance.csv')
+    x_column =  df['age']
+    y_column =  df['charges']
+    regresion(x_column,y_column,100)
 
